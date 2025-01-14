@@ -32,7 +32,7 @@ from wagtail_localize.components import register_translation_component
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 from wagtail_localize.models import TranslationSource
 from wagtail_localize.segments import StringSegmentValue
-
+from wagtailmedia.blocks import AudioChooserBlock
 
 if WAGTAIL_VERSION >= (6, 3):
     from wagtail.images.blocks import ImageBlock
@@ -45,6 +45,32 @@ else:
         )
         alt_text = blocks.CharBlock(required=False, label=gettext_lazy("Alt text"))
 
+
+
+class AudioPage(Page):
+    media = StreamField(
+        [
+            (
+                "audio",
+                AudioChooserBlock(icon="media", label="Audio"),
+            ),
+            (
+                "image",
+                ImageChooserBlock(icon="media", label="Image"),
+            )
+        ],
+        blank=True,
+        verbose_name="Medien",
+        help_text="Audio Dateien verlinken",
+    )
+
+    translatable_fields = [
+        TranslatableField("media"),
+    ]
+
+    content_panels = panels = Page.content_panels + [
+        FieldPanel('media')
+    ]
 
 @register_snippet
 class TestSnippet(TranslatableMixin, DraftStateMixin, RevisionMixin, ClusterableModel):

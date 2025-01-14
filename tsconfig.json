@@ -6,10 +6,17 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "strictNullChecks": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "skipLibCheck": true
   },
   "files": [
     "wagtail_localize/static_src/main.tsx",
     "wagtail_localize/static_src/custom.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "./node_modules",
+    "./node_modules/**",
+    "./node_modules/**/*.d.ts"
   ]
 }
